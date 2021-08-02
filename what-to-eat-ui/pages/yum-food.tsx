@@ -37,9 +37,7 @@ export async function getServerSideProps(context: any) {
 
 export default function yum_food(props: any){
     const router = useRouter()
-    const { location, category } = router.query
-    console.log(location, category)
-    console.log(props)
+    //TODO: Get more than 20
     console.log(props.businesses.length)
 
     const randomResturant = () => {
