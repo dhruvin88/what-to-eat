@@ -35,7 +35,7 @@ export async function getServerSideProps(context: any) {
     };
 }
 
-export default function yum_food(props: any){
+export default function YumFood(props: any){
     const router = useRouter()
     //TODO: Get more than 20
     console.log(props.businesses.length)
