@@ -3,7 +3,6 @@ import Image from "next/image";
 import styles from "../styles/layout.module.css";
 import Link from "next/link";
 
-const name = "[Your Name]";
 export const siteTitle = "Restaurant Picker";
 
 export default function Layout({

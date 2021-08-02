@@ -1,12 +1,13 @@
 import React from "react";
 import { useState } from "react";
-import { Step1 } from "./step1";
-import { Step2 } from "./step2";
+import {useRouter} from 'next/router'
+import Step1 from "./step1";
+import Step2 from "./step2";
 
-export function MasterForm() {
-
+export default function MasterForm() {
     const [currentStep, setCurrentStep] = useState(1);
-    const [form, setFormInput] = useState({ zipcode: "", category: ""});
+    const [form, setFormInput] = useState({ location: "", category: ""});
+    const router = useRouter()
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target
@@ -18,10 +19,10 @@ export function MasterForm() {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        alert(`Your registration detail: \n 
-                 currentStep: ${currentStep} \n 
-                 Zip Code: ${form.zipcode} \n
-                 Category: ${form.category}`);
+        router.push({
+            pathname: '/yum-food',
+            query: {location: encodeURIComponent(form.location), category: encodeURIComponent(form.category.toLowerCase())},
+        })
     }
 
     const _next = () => {
@@ -49,7 +50,7 @@ export function MasterForm() {
     }
 
     const nextButton = () => {
-        if (form.zipcode.length == 5 && currentStep < 2){
+        if (form.location.length == 5 && currentStep < 2){
             return (
                 <button
                     className="btn btn-primary float-right"
@@ -70,7 +71,7 @@ export function MasterForm() {
                 <Step1
                     currentStep={currentStep}
                     handleChange={handleChange}
-                    zipcode={form.zipcode}
+                    location={form.location}
                 />
                 <Step2
                     currentStep={currentStep}
