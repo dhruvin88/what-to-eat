@@ -1,20 +1,23 @@
 import { useRouter } from "next/router";
 import { gql } from "@apollo/client";
 import client from "../apollo-client";
-import React from "react";
+import React, { useState } from "react";
 import ResturantCard from "../components/resturant-card";
+import { Button, Col, Row } from "react-bootstrap";
+import Layout from "../components/layout";
 
 export async function getServerSideProps(context: any) {
-    let { location, category } = context.query
-    category = category ? category: "food"
-    const { data } = await client.query({
-      query: gql`
+  let { location, category } = context.query;
+  category = category ? category : "food";
+  const { data } = await client.query({
+    query: gql`
       {
-        search(location: "${location}", categories: "${category}") {
+        search(location: "${location}", categories: "${category}", limit: 50) {
           total
           business {
             name,
             phone,
+            photos,
             hours {
               is_open_now
             },
@@ -26,28 +29,37 @@ export async function getServerSideProps(context: any) {
         }
       }
       `,
-    });
+  });
 
-    return {
-        props: {
-        businesses: data.search.business
-      }
-    };
+  return {
+    props: {
+      businesses: data.search.business,
+    },
+  };
 }
 
-export default function YumFood(props: any){
-    const router = useRouter()
-    //TODO: Get more than 20
-    console.log(props.businesses.length)
+export default function YumFood(props: any) {
+  const router = useRouter();
+  const randomInt = Math.floor(Math.random() * props.businesses.length);
+  const [business, setBusiness] = useState(props.businesses[randomInt]);
 
-    const randomResturant = () => {
-        let randomInt = Math.floor(Math.random() * (props.businesses.length + 1));
-        return props.businesses[randomInt]
-    };
+  const updateRandomResturant = () => {
+    const randomInt = Math.floor(Math.random() * props.businesses.length);
+    setBusiness(props.businesses[randomInt]);
+  };
 
-    return (
-        <div>
-            <ResturantCard resturant={randomResturant()}></ResturantCard>
-        </div>
-    );
+  return (
+    <div>
+      <Layout>
+        <ResturantCard resturant={business}></ResturantCard>
+        <Row className="justify-content-md-center">
+          <Col className="d-grid gap-2">
+            <Button variant="primary" size="lg" onClick={updateRandomResturant}>
+              Pick something else
+            </Button>
+          </Col>
+        </Row>
+      </Layout>
+    </div>
+  );
 }

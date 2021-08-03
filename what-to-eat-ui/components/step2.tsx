@@ -1,3 +1,6 @@
+import React from "react";
+import { Button } from "react-bootstrap";
+
 export default function Step2(props: any) {
   if (props.currentStep !== 2) {
     return null;
@@ -15,7 +18,7 @@ export default function Step2(props: any) {
         onChange={props.handleChange}
       />
       <div className="text-center">
-        <button className="btn btn-success btn-block">Pick Resturant</button>
+        <Button className="btn btn-success btn-block" type="submit">Pick Resturant</Button>
       </div>
     </div>
   );

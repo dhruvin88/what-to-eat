@@ -3,6 +3,7 @@ import { useState } from "react";
 import {useRouter} from 'next/router'
 import Step1 from "./step1";
 import Step2 from "./step2";
+import { Button } from "react-bootstrap";
 
 export default function MasterForm() {
     const [currentStep, setCurrentStep] = useState(1);
@@ -39,11 +40,11 @@ export default function MasterForm() {
     const previousButton = () => {
         if (currentStep !== 1) {
             return (
-                <button
+                <Button variant="secondary"
                     className="btn btn-secondary"
                     type="button" onClick={_prev}>
                     Previous
-                </button>
+                </Button>
             )
         }
         return;
@@ -52,11 +53,11 @@ export default function MasterForm() {
     const nextButton = () => {
         if (form.location.length == 5 && currentStep < 2){
             return (
-                <button
-                    className="btn btn-primary float-right"
+                <Button variant="primary"
+                    className="btn float-right"
                     type="button" onClick={_next}>
                     Next
-                </button>
+                </Button>
             )
         }
         return;
