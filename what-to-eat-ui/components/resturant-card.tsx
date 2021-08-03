@@ -16,7 +16,7 @@ export default function ResturantCard(props: any) {
             <Card.Text>
               Address: {props.resturant.location.formatted_address},<br />
               Phone: {props.resturant.phone},<br />
-              {props.resturant.is_closed ? "Closed :(": "Open!"}
+              {props.resturant.hours.is_open_now ? "Open!" : "Closed :("}
               <br />
             </Card.Text>
           </Card.Body>
