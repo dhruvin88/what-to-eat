@@ -2,6 +2,7 @@ import React from "react";
 import { Card, Row } from "react-bootstrap";
 
 export default function ResturantCard(props: any) {
+  console.log(props)
   return (
     <div>
       <Row>
@@ -16,7 +17,7 @@ export default function ResturantCard(props: any) {
             <Card.Text>
               Address: {props.resturant.location.formatted_address},<br />
               Phone: {props.resturant.phone},<br />
-              {props.resturant.hours.is_open_now ? "Open!" : "Closed :("}
+              {props.resturant.hours[0]?.is_open_now ? "Open!" : "Closed :("}
               <br />
             </Card.Text>
           </Card.Body>
